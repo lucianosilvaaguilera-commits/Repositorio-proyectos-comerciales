@@ -128,19 +128,6 @@
   .bloque p{color:var(--hueso)}
   .bloque p + p{margin-top:10px}
 
-  .hitos{list-style:none}
-  .hitos li{
-    display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--acero);
-    font-size:14px;
-  }
-  .hitos li:last-child{border-bottom:none}
-  .hitos .fecha{color:var(--ambar);font-weight:600;min-width:92px;
-    font-variant-numeric:tabular-nums}
-
-  .contactos{list-style:none;font-size:14px}
-  .contactos li{padding:6px 0;border-bottom:1px solid var(--acero)}
-  .contactos li:last-child{border-bottom:none}
-  .contactos .rol{color:var(--riel)}
 
   /* documentos */
   .doc-toolbar{display:flex;justify-content:space-between;align-items:center;
@@ -208,7 +195,7 @@
    ===================================================================== */
 const CONFIG = {
   usuario: "lucianosilvaaguilera-commits",  // tu usuario de GitHub
-  repo:    "Repositorio-proyectos-comerciales",          // el nombre del repositorio
+  repo:    "proyectos-comerciales",          // el nombre del repositorio
   rama:    "main"
 };
 
@@ -228,13 +215,6 @@ const PROYECTOS = [
     descripcion: [
       "Proceso de licitación para el servicio de transporte ferroviario de carga asociado al proyecto Taca Taca, gestionado por Corriente Argentina S.A. (CASA), filial de First Quantum Minerals.",
       "Actualmente en etapa de análisis de las Bases Administrativas y Económicas y preparación de consultas formales para la Ronda 1."
-    ],
-    hitos: [
-      { fecha: "2026-06", texto: "Recepción de Bases Administrativas y Económicas (92 páginas)" },
-      { fecha: "2026-07", texto: "Envío de consultas Ronda 1 vía SAP Ariba" }
-    ],
-    contactos: [
-      { nombre: "Omar Collao", rol: "Jefe de Abastecimiento — Ferronor" }
     ]
   },
   {
@@ -246,11 +226,7 @@ const PROYECTOS = [
     descripcion: [
       "Evaluación de la oportunidad de negocio asociada al reinicio de Cerro Colorado, considerando que el EIA confirma un modelo de despacho por camión hacia Iquique.",
       "El análisis busca determinar si existe espacio competitivo para una alternativa intermodal con participación de Ferronor."
-    ],
-    hitos: [
-      { fecha: "2026-06", texto: "Revisión del EIA presentado por BHP" }
-    ],
-    contactos: []
+    ]
   },
   {
     id: "proyecto-ejemplo",
@@ -260,12 +236,6 @@ const PROYECTOS = [
     resumen: "Este es un proyecto de muestra: cópialo, cambia el id y los datos, y crea su carpeta en /proyectos/ dentro del repo.",
     descripcion: [
       "Descripción del proyecto. Puedes escribir varios párrafos agregando más textos a esta lista."
-    ],
-    hitos: [
-      { fecha: "2026-01", texto: "Hito de ejemplo" }
-    ],
-    contactos: [
-      { nombre: "Nombre Apellido", rol: "Cargo — Empresa" }
     ]
   }
 ];
@@ -322,14 +292,6 @@ function renderDetalle(p){
   const urlSubir = `https://github.com/${CONFIG.usuario}/${CONFIG.repo}/upload/${CONFIG.rama}/proyectos/${p.id}`;
 
   const descripcion = p.descripcion.map(t => `<p>${esc(t)}</p>`).join("");
-  const hitos = p.hitos.length
-    ? `<ul class="hitos">${p.hitos.map(h =>
-        `<li><span class="fecha">${esc(h.fecha)}</span><span>${esc(h.texto)}</span></li>`).join("")}</ul>`
-    : `<p class="docs-vacio">Sin hitos registrados.</p>`;
-  const contactos = p.contactos.length
-    ? `<ul class="contactos">${p.contactos.map(c =>
-        `<li><strong>${esc(c.nombre)}</strong> · <span class="rol">${esc(c.rol)}</span></li>`).join("")}</ul>`
-    : `<p class="docs-vacio">Sin contactos registrados.</p>`;
 
   app.innerHTML = `
     <div class="detalle">
@@ -344,22 +306,12 @@ function renderDetalle(p){
       </div>
 
       <div class="bloque">
-        <h3>Hitos</h3>
-        ${hitos}
-      </div>
-
-      <div class="bloque">
         <h3>Documentos</h3>
         <div class="doc-toolbar">
           <span style="color:var(--riel);font-size:13px">Archivos en la carpeta <code>proyectos/${esc(p.id)}/</code> del repositorio</span>
           <a class="btn-subir" href="${urlSubir}" target="_blank" rel="noopener">⬆ Subir archivos</a>
         </div>
         <div id="docs">Cargando documentos…</div>
-      </div>
-
-      <div class="bloque">
-        <h3>Contactos</h3>
-        ${contactos}
       </div>
     </div>`;
 
