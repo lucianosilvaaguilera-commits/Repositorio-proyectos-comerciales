@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyectos Comerciales · Ferronor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2545;        /* fondo principal */
+    --navy-2:#123159;      /* paneles */
+    --acero:#1D4370;       /* bordes, hover */
+    --hueso:#F5F7FA;       /* texto principal sobre navy */
+    --riel:#93A3B8;        /* texto secundario */
+    --ambar:#F2A33C;       /* señal: en evaluación / acento */
+    --verde:#3FA46A;       /* señal: activo */
+    --rojo:#D9534F;        /* señal: detenido */
+    --radius:6px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--navy);
+    color:var(--hueso);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:15px;
+    line-height:1.6;
+    min-height:100vh;
+  }
+  a{color:inherit}
+
+  /* ---------- Cabecera ---------- */
+  header{
+    border-bottom:1px solid var(--acero);
+    padding:22px 0 18px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .marca{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .marca h1{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;font-size:30px;letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+  .marca h1 span{color:var(--ambar)}
+  .marca .area{
+    font-size:12px;color:var(--riel);letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+
+  /* divisor "vía férrea": línea con durmientes */
+  .via{
+    height:10px;margin-top:16px;
+    background:
+      repeating-linear-gradient(90deg, var(--acero) 0 3px, transparent 3px 26px) center/100% 10px no-repeat,
+      linear-gradient(var(--acero),var(--acero)) center/100% 2px no-repeat;
+    opacity:.9;
+  }
+
+  main{padding:36px 0 80px}
+
+  /* ---------- Listado ---------- */
+  .intro{max-width:620px;margin-bottom:34px}
+  .intro p{color:var(--riel)}
+  .contador{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:15px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ambar);margin-bottom:6px;
+  }
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--navy-2);
+    border:1px solid var(--acero);
+    border-radius:var(--radius);
+    padding:20px 20px 18px;
+    cursor:pointer;
+    transition:border-color .15s, transform .15s;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .card:hover,.card:focus-visible{border-color:var(--ambar);transform:translateY(-2px)}
+  .card:focus-visible{outline:2px solid var(--ambar);outline-offset:2px}
+  .card h2{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:22px;letter-spacing:.02em;line-height:1.2;
+  }
+  .card .cliente{font-size:13px;color:var(--riel)}
+  .card .resumen{font-size:14px;color:var(--riel);flex:1}
+
+  /* señal ferroviaria de estado */
+  .senal{display:inline-flex;align-items:center;gap:8px;font-size:12px;
+    letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  .senal .luz{width:10px;height:10px;border-radius:50%;box-shadow:0 0 8px currentColor}
+  .estado-activo{color:var(--verde)}
+  .estado-evaluacion{color:var(--ambar)}
+  .estado-detenido{color:var(--rojo)}
+  .estado-activo .luz{background:var(--verde)}
+  .estado-evaluacion .luz{background:var(--ambar)}
+  .estado-detenido .luz{background:var(--rojo)}
+
+  /* ---------- Detalle ---------- */
+  .volver{
+    display:inline-flex;align-items:center;gap:8px;
+    background:none;border:1px solid var(--acero);color:var(--riel);
+    border-radius:var(--radius);padding:7px 14px;font-size:13px;
+    cursor:pointer;margin-bottom:26px;font-family:inherit;
+    transition:border-color .15s,color .15s;
+  }
+  .volver:hover{border-color:var(--ambar);color:var(--hueso)}
+  .detalle h2{
+    font-family:'Barlow Condensed',sans-serif;font-weight:700;
+    font-size:38px;letter-spacing:.02em;line-height:1.1;margin-bottom:4px;
+  }
+  .detalle .cliente{color:var(--riel);margin-bottom:14px}
+  .detalle .senal{margin-bottom:26px}
+  .bloque{
+    background:var(--navy-2);border:1px solid var(--acero);
+    border-radius:var(--radius);padding:22px;margin-bottom:18px;
+  }
+  .bloque h3{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:16px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ambar);margin-bottom:12px;
+  }
+  .bloque p{color:var(--hueso)}
+  .bloque p + p{margin-top:10px}
+
+  .hitos{list-style:none}
+  .hitos li{
+    display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--acero);
+    font-size:14px;
+  }
+  .hitos li:last-child{border-bottom:none}
+  .hitos .fecha{color:var(--ambar);font-weight:600;min-width:92px;
+    font-variant-numeric:tabular-nums}
+
+  .contactos{list-style:none;font-size:14px}
+  .contactos li{padding:6px 0;border-bottom:1px solid var(--acero)}
+  .contactos li:last-child{border-bottom:none}
+  .contactos .rol{color:var(--riel)}
+
+  /* documentos */
+  .doc-toolbar{display:flex;justify-content:space-between;align-items:center;
+    gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .btn-subir{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--ambar);color:var(--navy);text-decoration:none;
+    font-weight:600;font-size:14px;border-radius:var(--radius);
+    padding:9px 16px;transition:filter .15s;
+  }
+  .btn-subir:hover{filter:brightness(1.08)}
+  .docs{list-style:none}
+  .docs li{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 4px;border-bottom:1px solid var(--acero);font-size:14px;
+  }
+  .docs li:last-child{border-bottom:none}
+  .docs .ext{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;
+    letter-spacing:.08em;color:var(--navy);background:var(--riel);
+    border-radius:3px;padding:2px 7px;min-width:46px;text-align:center;
+  }
+  .docs .ext.xlsx{background:#4FA872}
+  .docs .ext.pdf{background:#D9776F}
+  .docs .ext.docx{background:#6D9BD1}
+  .docs a{color:var(--hueso);text-decoration:none;flex:1}
+  .docs a:hover{color:var(--ambar);text-decoration:underline}
+  .docs .peso{color:var(--riel);font-size:13px;font-variant-numeric:tabular-nums}
+  .docs-vacio,.docs-error{color:var(--riel);font-size:14px;padding:6px 4px}
+
+  footer{border-top:1px solid var(--acero);padding:18px 0;
+    font-size:12px;color:var(--riel)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important}
+  }
+  @media (max-width:560px){
+    .detalle h2{font-size:30px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="marca">
+      <h1>Ferronor <span>·</span> Proyectos Comerciales</h1>
+      <div class="area">Gerencia Comercial</div>
+    </div>
+    <div class="via" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="app"></div>
+</main>
+
+<footer>
+  <div class="wrap">Ferronor S.A. · Gerencia Comercial · Los documentos los sube personal de Ferronor a través del repositorio GitHub.</div>
+</footer>
+
+<script>
+/* =====================================================================
+   CONFIGURACIÓN — edita estos dos valores con tu usuario y repo
+   ===================================================================== */
+const CONFIG = {
+  usuario: "lucianosilvaaguilera-commits",  // tu usuario de GitHub
+  repo:    "proyectos-comerciales",          // el nombre del repositorio
+  rama:    "main"
+};
+
+/* =====================================================================
+   PROYECTOS — para agregar el proyecto 11, copia un bloque {...} y edítalo.
+   El campo "id" debe coincidir con el nombre de la carpeta dentro de
+   /proyectos/ en el repo (sin espacios, sin tildes, en minúsculas).
+   Estados posibles: "activo", "evaluacion", "detenido"
+   ===================================================================== */
+const PROYECTOS = [
+  {
+    id: "taca-taca",
+    nombre: "Taca Taca — Licitación Ferroviaria",
+    cliente: "Corriente Argentina S.A. (First Quantum Minerals)",
+    estado: "activo",
+    resumen: "Licitación de transporte ferroviario de carga para el proyecto minero Taca Taca. Proceso vía SAP Ariba.",
+    descripcion: [
+      "Proceso de licitación para el servicio de transporte ferroviario de carga asociado al proyecto Taca Taca, gestionado por Corriente Argentina S.A. (CASA), filial de First Quantum Minerals.",
+      "Actualmente en etapa de análisis de las Bases Administrativas y Económicas y preparación de consultas formales para la Ronda 1."
+    ],
+    hitos: [
+      { fecha: "2026-06", texto: "Recepción de Bases Administrativas y Económicas (92 páginas)" },
+      { fecha: "2026-07", texto: "Envío de consultas Ronda 1 vía SAP Ariba" }
+    ],
+    contactos: [
+      { nombre: "Omar Collao", rol: "Jefe de Abastecimiento — Ferronor" }
+    ]
+  },
+  {
+    id: "cerro-colorado",
+    nombre: "Cerro Colorado — Oportunidad Intermodal",
+    cliente: "BHP",
+    estado: "evaluacion",
+    resumen: "Análisis de factibilidad de una solución logística intermodal ferroviaria a partir del EIA presentado por BHP.",
+    descripcion: [
+      "Evaluación de la oportunidad de negocio asociada al reinicio de Cerro Colorado, considerando que el EIA confirma un modelo de despacho por camión hacia Iquique.",
+      "El análisis busca determinar si existe espacio competitivo para una alternativa intermodal con participación de Ferronor."
+    ],
+    hitos: [
+      { fecha: "2026-06", texto: "Revisión del EIA presentado por BHP" }
+    ],
+    contactos: []
+  },
+  {
+    id: "proyecto-ejemplo",
+    nombre: "Proyecto de Ejemplo",
+    cliente: "Cliente / Mandante",
+    estado: "detenido",
+    resumen: "Este es un proyecto de muestra: cópialo, cambia el id y los datos, y crea su carpeta en /proyectos/ dentro del repo.",
+    descripcion: [
+      "Descripción del proyecto. Puedes escribir varios párrafos agregando más textos a esta lista."
+    ],
+    hitos: [
+      { fecha: "2026-01", texto: "Hito de ejemplo" }
+    ],
+    contactos: [
+      { nombre: "Nombre Apellido", rol: "Cargo — Empresa" }
+    ]
+  }
+];
+
+/* ===================================================================== */
+const ESTADOS = {
+  activo:     { clase: "estado-activo",     texto: "Activo" },
+  evaluacion: { clase: "estado-evaluacion", texto: "En evaluación" },
+  detenido:   { clase: "estado-detenido",   texto: "Detenido" }
+};
+
+const app = document.getElementById("app");
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+function senalHTML(estado){
+  const e = ESTADOS[estado] || ESTADOS.evaluacion;
+  return `<span class="senal ${e.clase}"><span class="luz"></span>${e.texto}</span>`;
+}
+
+/* ---------- Vista: listado ---------- */
+function renderListado(){
+  document.title = "Proyectos Comerciales · Ferronor";
+  const cards = PROYECTOS.map(p => `
+    <div class="card" role="link" tabindex="0" data-id="${esc(p.id)}"
+         aria-label="Abrir proyecto ${esc(p.nombre)}">
+      ${senalHTML(p.estado)}
+      <h2>${esc(p.nombre)}</h2>
+      <div class="cliente">${esc(p.cliente)}</div>
+      <div class="resumen">${esc(p.resumen)}</div>
+    </div>`).join("");
+
+  app.innerHTML = `
+    <div class="intro">
+      <div class="contador">${PROYECTOS.length} proyecto${PROYECTOS.length===1?"":"s"} en cartera</div>
+      <p>Selecciona un proyecto para ver su información completa y sus documentos.</p>
+    </div>
+    <div class="grid">${cards}</div>`;
+
+  app.querySelectorAll(".card").forEach(c => {
+    const abrir = () => { location.hash = "#/" + c.dataset.id; };
+    c.addEventListener("click", abrir);
+    c.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); abrir(); }});
+  });
+}
+
+/* ---------- Vista: detalle ---------- */
+function renderDetalle(p){
+  document.title = p.nombre + " · Ferronor";
+  const urlSubir = `https://github.com/${CONFIG.usuario}/${CONFIG.repo}/upload/${CONFIG.rama}/proyectos/${p.id}`;
+
+  const descripcion = p.descripcion.map(t => `<p>${esc(t)}</p>`).join("");
+  const hitos = p.hitos.length
+    ? `<ul class="hitos">${p.hitos.map(h =>
+        `<li><span class="fecha">${esc(h.fecha)}</span><span>${esc(h.texto)}</span></li>`).join("")}</ul>`
+    : `<p class="docs-vacio">Sin hitos registrados.</p>`;
+  const contactos = p.contactos.length
+    ? `<ul class="contactos">${p.contactos.map(c =>
+        `<li><strong>${esc(c.nombre)}</strong> · <span class="rol">${esc(c.rol)}</span></li>`).join("")}</ul>`
+    : `<p class="docs-vacio">Sin contactos registrados.</p>`;
+
+  app.innerHTML = `
+    <div class="detalle">
+      <button class="volver" id="volver">← Volver al listado</button>
+      <h2>${esc(p.nombre)}</h2>
+      <div class="cliente">${esc(p.cliente)}</div>
+      ${senalHTML(p.estado)}
+
+      <div class="bloque">
+        <h3>Descripción</h3>
+        ${descripcion}
+      </div>
+
+      <div class="bloque">
+        <h3>Hitos</h3>
+        ${hitos}
+      </div>
+
+      <div class="bloque">
+        <h3>Documentos</h3>
+        <div class="doc-toolbar">
+          <span style="color:var(--riel);font-size:13px">Archivos en la carpeta <code>proyectos/${esc(p.id)}/</code> del repositorio</span>
+          <a class="btn-subir" href="${urlSubir}" target="_blank" rel="noopener">⬆ Subir archivos</a>
+        </div>
+        <div id="docs">Cargando documentos…</div>
+      </div>
+
+      <div class="bloque">
+        <h3>Contactos</h3>
+        ${contactos}
+      </div>
+    </div>`;
+
+  document.getElementById("volver").addEventListener("click", () => { location.hash = ""; });
+  cargarDocs(p.id);
+}
+
+/* Lee los archivos de la carpeta del proyecto usando la API de GitHub */
+async function cargarDocs(id){
+  const cont = document.getElementById("docs");
+  const url = `https://api.github.com/repos/${CONFIG.usuario}/${CONFIG.repo}/contents/proyectos/${id}?ref=${CONFIG.rama}`;
+  try{
+    const r = await fetch(url);
+    if(r.status === 404){
+      cont.innerHTML = `<p class="docs-vacio">Aún no hay documentos. Usa el botón "Subir archivos" para agregar el primero (GitHub creará la carpeta automáticamente).</p>`;
+      return;
+    }
+    if(!r.ok) throw new Error(r.status);
+    const datos = await r.json();
+    const archivos = datos.filter(f => f.type === "file" && f.name !== ".gitkeep");
+    if(!archivos.length){
+      cont.innerHTML = `<p class="docs-vacio">La carpeta está vacía. Usa "Subir archivos" para agregar documentos.</p>`;
+      return;
+    }
+    cont.innerHTML = `<ul class="docs">` + archivos.map(f => {
+      const ext = (f.name.split(".").pop() || "").toLowerCase();
+      const cls = ["xlsx","xls","csv"].includes(ext) ? "xlsx"
+                : ext === "pdf" ? "pdf"
+                : ["docx","doc"].includes(ext) ? "docx" : "";
+      const peso = f.size > 1048576 ? (f.size/1048576).toFixed(1)+" MB"
+                 : (f.size/1024).toFixed(0)+" KB";
+      return `<li>
+        <span class="ext ${cls}">${esc(ext.toUpperCase())}</span>
+        <a href="${esc(f.download_url)}" target="_blank" rel="noopener">${esc(f.name)}</a>
+        <span class="peso">${peso}</span>
+      </li>`;
+    }).join("") + `</ul>`;
+  }catch(e){
+    cont.innerHTML = `<p class="docs-error">No se pudo cargar la lista de documentos (verifica usuario/repo en CONFIG, o que el repo sea público para la API).</p>`;
+  }
+}
+
+/* ---------- Router por hash ---------- */
+function router(){
+  const id = location.hash.replace(/^#\/?/, "");
+  const p = PROYECTOS.find(x => x.id === id);
+  if(p){ renderDetalle(p); } else { renderListado(); }
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", router);
+router();
+</script>
+</body>
+</html>
